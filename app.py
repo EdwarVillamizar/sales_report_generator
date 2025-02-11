@@ -41,21 +41,23 @@ total_ventas_vendedor = datos_de_ventas.groupby('Vendedor')['Total_Venta'].sum()
 
 total_ventas_mes = datos_de_ventas.groupby('Mes')['Total_Venta'].sum().reset_index()
 
-
-
-
-
-
-
-print(datos_de_ventas)
-
-
 '''
-Calcular el total de ventas por vendedor y por mes.
-Generación de un Nuevo Archivo Excel:
-Crear un nuevo archivo Excel (resumen_ventas.xlsx) con dos hojas:
-"Resumen_Ventas": Contiene el total de ventas por vendedor.
-"Ventas_Mensuales": Contiene el total de ventas por mes.
-Entrega:
-Compartir el archivo resumen_ventas.xlsx generado.
-Compartir el link a un repositorio de GitHub usando el correctamente el manejo de commits.'''
+3. Calcular el total de ventas por vendedor y por mes.
+    Generación de un Nuevo Archivo Excel:
+    Crear un nuevo archivo Excel (resumen_ventas.xlsx) con dos hojas:
+    "Resumen_Ventas": Contiene el total de ventas por vendedor.
+    "Ventas_Mensuales": Contiene el total de ventas por mes.
+'''
+
+try:
+
+    with pd.ExcelWriter('resumen_ventas.xlsx') as writer:
+
+        total_ventas_vendedor.to_excel(writer,sheet_name='Resumen_Ventas',index=False)
+        total_ventas_mes.to_excel(writer,sheet_name='Ventas_Mensuales',index=False)
+
+    print("El resumen de ventas se genero exitosamente.")
+
+except:
+
+    print("La hoja de datos de ventas presenta errores, no se ha podido generar el archivo")
